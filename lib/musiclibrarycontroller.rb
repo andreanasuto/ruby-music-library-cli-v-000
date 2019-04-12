@@ -27,18 +27,72 @@ class MusicLibraryController
   end
 
   def list_songs
-    songs_name = []
-    i=0
-    @music_importer.files.each {|file| songs_name << file.split(' - ')[1]}
-    songs_name.sort.each { |name|
+    songs = []
+    i = 0
+    Song.all.each { |song| songs << song }
+    songs_sorted = songs.sort { |e,f| e.name <=> f.name}
+    songs_sorted.uniq.each { |song|
       i += 1
-      puts "#{i}. #{Song.find_by_name(name).artist.name} - #{name} - #{Song.find_by_name(name).genre.name}"
+      puts "#{i}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
     }
   end
 
   def list_artists
-    @music_importer.files.each do |song|
-      puts "1. #{song.split(' - ')[0]}"
+    i = 0
+    artists_name = []
+    Artist.all.each { |artist| artists_name << artist.name}
+    artists_name.sort.uniq.each { |name|
+      i += 1
+      puts "#{i}. #{name}"
+    }
+  end
+
+  def list_genres
+    i = 0
+    genres_name = []
+    Genre.all.each { |genre| genres_name << genre.name}
+    genres_name.sort.uniq.each { |name|
+      i += 1
+      puts "#{i}. #{name}"
+    }
+  end
+
+  def list_songs_by_artist
+    puts "Please enter the name of an artist:"
+    input = gets.strip
+    i = 0
+    songs = []
+    songs = Song.all.select { |song| song.artist.name == input}
+    songs_sorted = songs.sort { |e,f| e.name <=> f.name}
+    songs_sorted.uniq.each { |song|
+      i += 1
+      puts "#{i}. #{song.name} - #{song.genre.name}"
+    }
+  end
+
+  def list_songs_by_genre
+    puts "Please enter the name of a genre:"
+    input = gets.strip
+    i = 0
+    songs = Song.all.select { |song| song.genre.name == input}
+    songs_sorted = songs.sort { |e,f| e.name <=> f.name}
+    songs_sorted.uniq.each { |song|
+      i += 1
+      puts "#{i}. #{song.artist.name} - #{song.name}"
+    }
+  end
+
+  def play_song
+    self.list_songs
+    input = gets.strip
+    loop do
+      puts "Which song number would you like to play?"
+      songs = Song.all.select { |song| song.genre.name == input}
+      songs_sorted = songs.sort { |e,f| e.name <=> f.name}
+      if input.to_i <= songs_sorted.uniq.size
+        break
+        puts "Playing #{songs_sorted[input.to_i - 1].name} by #{songs_sorted[input.to_i - 1].artist.name}"
+      end
     end
   end
 end
