@@ -89,7 +89,6 @@ class MusicLibraryController
       songs_sorted = Song.all.sort { |e,f| e.name <=> f.name}
       if input.to_i <= songs_sorted.uniq.size
         puts "Playing #{songs_sorted.uniq[input.to_i - 1].name} by #{songs_sorted.uniq[input.to_i - 1].artist.name}"
-        break
       end
   end
 end
