@@ -83,7 +83,6 @@ class MusicLibraryController
   end
 
   def play_song
-    self.list_songs
     input = ""
     loop do
       puts "Which song number would you like to play?"
