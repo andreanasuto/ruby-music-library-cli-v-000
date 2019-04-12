@@ -28,6 +28,31 @@ class MusicLibraryController
         self.list_songs
         break
       end
+
+      if input == "list artists"
+        self.list_artists
+        break
+      end
+
+      if input == "list genres"
+        self.list_genres
+        break
+      end
+
+      if input == "list artist"
+        self.list_songs_by_artist
+        break
+      end
+
+      if input == "list genre"
+        self.list_songs_by_genre
+        break
+      end
+
+      if input == "play song"
+        self.play_song
+        break
+      end
     end
   end
 
