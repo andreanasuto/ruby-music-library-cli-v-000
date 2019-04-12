@@ -23,6 +23,11 @@ class MusicLibraryController
       if input == "exit"
         break
       end
+
+      if input == "list songs"
+        self.list_songs
+        break
+      end
     end
   end
 
@@ -91,4 +96,5 @@ class MusicLibraryController
         puts "Playing #{songs_sorted.uniq[input.to_i - 1].name} by #{songs_sorted.uniq[input.to_i - 1].artist.name}"
       end
   end
+
 end
