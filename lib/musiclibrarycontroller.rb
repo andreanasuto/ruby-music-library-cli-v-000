@@ -85,10 +85,9 @@ class MusicLibraryController
   def play_song
     input = gets.strip
     loop do
-      puts "Which song number would you like to play?"
       self.list_songs
-      songs = Song.all.select { |song| song.genre.name == input}
-      songs_sorted = songs.sort { |e,f| e.name <=> f.name}
+      puts "Which song number would you like to play?"
+      songs_sorted = Song.all.sort { |e,f| e.name <=> f.name}
       if input.to_i <= songs_sorted.uniq.size
         break
         puts "Playing #{songs_sorted[input.to_i - 1].name} by #{songs_sorted[input.to_i - 1].artist.name}"
