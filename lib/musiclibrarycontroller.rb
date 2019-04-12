@@ -84,8 +84,8 @@ class MusicLibraryController
 
   def play_song
     input = gets.strip
+    self.list_songs
     loop do
-      self.list_songs
       puts "Which song number would you like to play?"
       songs_sorted = Song.all.sort { |e,f| e.name <=> f.name}
       if input.to_i <= songs_sorted.uniq.size
